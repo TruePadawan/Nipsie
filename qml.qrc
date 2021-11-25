@@ -13,5 +13,10 @@
         <file>resources/muted.png</file>
         <file>resources/volume.png</file>
         <file>FileInfo.qml</file>
+        <file>resources/repeat.png</file>
+        <file>resources/shuffle.png</file>
+        <file>resources/repeat_clicked.png</file>
+        <file>resources/repeat_one.png</file>
+        <file>resources/shuffle_clicked.png</file>
     </qresource>
 </RCC>
