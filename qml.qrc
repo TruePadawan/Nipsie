@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Controls.qml</file>
+        <file>resources/play.png</file>
+        <file>resources/stop.png</file>
+        <file>resources/pause.png</file>
+        <file>resources/open_file.png</file>
+        <file>resources/seek_back.png</file>
+        <file>resources/seek_forward.png</file>
+        <file>resources/playlist.png</file>
+        <file>helpers.js</file>
+        <file>resources/muted.png</file>
+        <file>resources/volume.png</file>
+        <file>FileInfo.qml</file>
+    </qresource>
+</RCC>
