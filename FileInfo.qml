@@ -44,12 +44,14 @@ Item {
 
                     Rectangle {
                         id: rectangle
+                        width: 116
+                        height: 72
                         color: "#ffffff"
-                        anchors.fill: parent
                     }
                     Image {
                         id: image
-                        anchors.fill: parent
+                        width: 116
+                        height: 72
                         source: ""
                         fillMode: Image.PreserveAspectFit
                     }
@@ -62,6 +64,32 @@ Item {
                 height: backgroundRect.height
                 color: "transparent"
                 border.color: "#ffffff"
+
+                Column {
+                    id: column1
+                    anchors.fill: parent
+                    padding: 10
+                    spacing: 5
+
+                    Label {
+                        id: title
+                        width: audioInfo.width * 0.9
+                        height: 20
+                        wrapMode: Text.Wrap
+                    }
+
+                    Label {
+                        id: artist
+                        width: audioInfo.width * 0.9
+                        wrapMode: Text.Wrap
+                    }
+
+                    Label {
+                        id: album
+                        width: audioInfo.width * 0.9
+                        wrapMode: Text.Wrap
+                    }
+                }
             }
 
             Rectangle {
