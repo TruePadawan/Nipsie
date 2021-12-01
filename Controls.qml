@@ -6,6 +6,8 @@ Item {
     id: root
     width: 430
     height: 70
+    property alias totalTimeFrame: totalTimeFrame
+    property alias currentTimeFrame: currentTimeFrame
     property alias audioIcon: audioIcon
     property alias seekSlider: seekSlider
     property alias volumeSlider: volumeSlider
