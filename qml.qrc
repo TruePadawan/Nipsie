@@ -18,5 +18,6 @@
         <file>resources/repeat_clicked.png</file>
         <file>resources/repeat_one.png</file>
         <file>resources/shuffle_clicked.png</file>
+        <file>resources/app_icon.ico</file>
     </qresource>
 </RCC>

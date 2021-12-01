@@ -9,19 +9,8 @@ Item {
 
     Rectangle {
         id: backgroundRect
-        color: "#c6ffdd"
+        color: "#a8edea"
         anchors.fill: parent
-        //        gradient: Gradient {
-        //            GradientStop {
-        //                position: 0.4
-        //                color: "#F1F109"
-        //            }
-
-        //            GradientStop {
-        //                position: 1.0
-        //                color: "#c6ffdd"
-        //            }
-        //        }
 
         Row {
             id: row
@@ -34,27 +23,23 @@ Item {
                 color: "transparent"
                 border.color: "#ffffff"
 
-                Column {
-                    id: column
-                    width: audioImage.width * 0.9
-                    height: audioImage.height * 0.9
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
+                Rectangle {
+                    id: fillerRect
+                    x: 7
+                    y: 4
+                    width: 116
+                    height: 72
+                    color: "#ffffff"
+                }
 
-
-                    Rectangle {
-                        id: rectangle
-                        width: 116
-                        height: 72
-                        color: "#ffffff"
-                    }
-                    Image {
-                        id: image
-                        width: 116
-                        height: 72
-                        source: ""
-                        fillMode: Image.PreserveAspectFit
-                    }
+                Image {
+                    id: image
+                    x: 7
+                    y: 4
+                    width: 116
+                    height: 72
+                    source: ""
+                    fillMode: Image.PreserveAspectFit
                 }
             }
 
@@ -96,16 +81,32 @@ Item {
                 id: extraControls
                 width: backgroundRect.width * 0.3
                 height: backgroundRect.height
-                color: "#e3ddcb"
+                color: "transparent"
                 border.color: "#ffffff"
 
                 Rectangle {
                     id: extraBackground
                     width: 65
                     height: 20
-                    color: "#302e29"
-                    radius: 0
+                    color: "#a1c4fd"
+                    radius: 5
                     anchors.verticalCenter: parent.verticalCenter
+                    gradient: Gradient {
+                        GradientStop {
+                            position: 0
+                            color: "#f3e7e9"
+                        }
+
+                        GradientStop {
+                            position: 0.99
+                            color: "#e3eeff"
+                        }
+
+                        GradientStop {
+                            position: 1
+                            color: "#e3eeff"
+                        }
+                    }
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     Row {

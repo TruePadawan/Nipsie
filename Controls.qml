@@ -6,6 +6,16 @@ Item {
     id: root
     width: 430
     height: 70
+    property alias audioIcon: audioIcon
+    property alias seekSlider: seekSlider
+    property alias volumeSlider: volumeSlider
+    property alias seekFront: seekFront
+    property alias seekBack: seekBack
+    property alias stopButton: stopButton
+    property alias playButton: playButton
+    property alias playButtonIcon: playButtonIcon
+    property alias playList: playList
+    property alias open_file: open_file
 
     Rectangle {
         id: rootRect
@@ -28,7 +38,7 @@ Item {
                 gradient: Gradient {
                     GradientStop {
                         position: 0.5
-                        color: "#c6ffdd"
+                        color: "#a8edea"
                     }
                 }
 
@@ -81,12 +91,23 @@ Item {
                             }
 
                             Image {
+                                id: audioIcon
                                 source: "qrc:/resources/volume.png"
                                 width: 16
                                 height: 16
                                 sourceSize.width: 16
                                 sourceSize.height: 16
                                 anchors.centerIn: parent
+
+                                states: [
+                                    State {
+                                        name: "muted"
+                                        PropertyChanges {
+                                            target: audioIcon
+                                            source: "qrc:/resources/muted.png"
+                                        }
+                                    }
+                                ]
                             }
                         }
 
@@ -127,18 +148,13 @@ Item {
                 border.width: 0
                 gradient: Gradient {
                     GradientStop {
-                        position: 0.3
-                        color: "#c6ffdd"
+                        position: 0
+                        color: "#a8edea"
                     }
 
                     GradientStop {
-                        position: 0.6
-                        color: "#fbd786"
-                    }
-
-                    GradientStop {
-                        position: 1.0
-                        color: "#f7797d"
+                        position: 1
+                        color: "#fed6e3"
                     }
                 }
 
@@ -151,20 +167,32 @@ Item {
                         id: playButton
                         width: 50
                         height: controlsRect.height
+
                         background: Rectangle {
                             color: "transparent"
                             border.width: 1
-                            border.color: "#ffffff"
-
+                            border.color: parent.down ? "yellow" : "#ffffff"
                         }
 
                         Image {
+                            id: playButtonIcon
                             source: "qrc:/resources/play.png"
                             width: 16
                             height: 16
                             sourceSize.height: 16
                             sourceSize.width: 16
                             anchors.centerIn: parent
+
+                            states: [
+                                State {
+                                    name: "paused"
+                                    PropertyChanges {
+                                        target: playButtonIcon
+                                        source: "qrc:/resources/pause.png"
+                                    }
+                                }
+
+                            ]
                         }
 
                     }
@@ -177,16 +205,27 @@ Item {
                         background: Rectangle {
                             color: "transparent"
                             border.width: 1
-                            border.color: "#ffffff"
+                            border.color: parent.down ? "yellow" : "#ffffff"
                         }
 
                         Image {
+                            id: stopButtonIcon
                             source: "resources/stop.png"
                             width: 16
                             height: 16
                             sourceSize.height: 16
                             sourceSize.width: 16
                             anchors.centerIn: parent
+
+                            states: [
+                                State {
+                                    name: "active"
+                                    PropertyChanges {
+                                        target: stopButtonIcon
+                                        source: "qrc:/resources/stop_active.png"
+                                    }
+                                }
+                            ]
                         }
                     }
 
@@ -198,16 +237,27 @@ Item {
                         background: Rectangle {
                             color: "transparent"
                             border.width: 1
-                            border.color: "#ffffff"
+                            border.color: parent.down ? "yellow" : "#ffffff"
                         }
 
                         Image {
+                            id: seekBackIcon
                             source: "qrc:/resources/seek_back.png"
                             width: 16
                             height: 16
                             sourceSize.height: 16
                             sourceSize.width: 16
                             anchors.centerIn: parent
+
+                            states: [
+                                State {
+                                    name: "active"
+                                    PropertyChanges {
+                                        target: seekBackIcon
+                                        source: "qrc:/resources/seek_back_active.png"
+                                    }
+                                }
+                            ]
                         }
                     }
 
@@ -219,16 +269,27 @@ Item {
                         background: Rectangle {
                             color: "transparent"
                             border.width: 1
-                            border.color: "#ffffff"
+                            border.color: parent.down ? "yellow" : "#ffffff"
                         }
 
                         Image {
+                            id: seekFrontIcon
                             source: "qrc:/resources/seek_forward.png"
                             width: 16
                             height: 16
                             sourceSize.height: 16
                             sourceSize.width: 16
                             anchors.centerIn: parent
+
+                            states: [
+                                State {
+                                    name: "active"
+                                    PropertyChanges {
+                                        target: seekFrontIcon
+                                        source: "qrc:/resources/seek_forward_active.png"
+                                    }
+                                }
+                            ]
                         }
                     }
 
@@ -236,20 +297,29 @@ Item {
                         id: open_file
                         width: 50
                         height: controlsRect.height
-                        text: qsTr("")
                         background: Rectangle {
                             color: "transparent"
                             border.width: 1
-                            border.color: "#ffffff"
+                            border.color: parent.down ? "yellow" : "#ffffff"
                         }
-
                         Image {
+                            id: open_fileIcon
                             source: "qrc:/resources/open_file.png"
                             width: 16
                             height: 16
                             sourceSize.height: 16
                             sourceSize.width: 16
                             anchors.centerIn: parent
+
+                            states: [
+                                State {
+                                    name: "active"
+                                    PropertyChanges {
+                                        target: open_fileIcon
+                                        source: "qrc:/resources/open_file_active.png"
+                                    }
+                                }
+                            ]
                         }
                     }
 
@@ -294,28 +364,40 @@ Item {
                         background: Rectangle {
                             color: "transparent"
                             border.width: 1
-                            border.color: "#ffffff"
+                            border.color: parent.down ? "yellow" : "#ffffff"
                         }
 
                         Image {
+                            id: playListIcon
                             source: "qrc:/resources/playlist.png"
                             width: 16
                             height: 16
                             sourceSize.height: 16
                             sourceSize.width: 16
                             anchors.centerIn: parent
+
+                            states: [
+                                State {
+                                    name: "active"
+                                    PropertyChanges {
+                                        target: playListIcon
+                                        source: "qrc:/resources/playlist_active.png"
+                                    }
+                                }
+                            ]
                         }
                     }
 
                 }
             }
         }
+
     }
 
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.9}D{i:6}
+    D{i:0;formeditorZoom:0.9}
 }
 ##^##*/
