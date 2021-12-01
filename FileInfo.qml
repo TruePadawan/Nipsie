@@ -20,8 +20,8 @@ Item {
                 id: audioImage
                 width: backgroundRect.width * 0.3
                 height: backgroundRect.height
-                color: "transparent"
-                border.color: "#ffffff"
+                color: "#ffecd2"
+                border.width: 1
 
                 Rectangle {
                     id: fillerRect
@@ -30,6 +30,7 @@ Item {
                     width: 116
                     height: 72
                     color: "#ffffff"
+                    border.width: 0
                 }
 
                 Image {
@@ -47,8 +48,19 @@ Item {
                 id: audioInfo
                 width: backgroundRect.width * 0.4
                 height: backgroundRect.height
-                color: "transparent"
-                border.color: "#ffffff"
+                color: "#ffecd2"
+                border.color: "#000000"
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0
+                        color: "#ffecd2"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#fcb69f"
+                    }
+                }
 
                 Column {
                     id: column1
@@ -81,8 +93,19 @@ Item {
                 id: extraControls
                 width: backgroundRect.width * 0.3
                 height: backgroundRect.height
-                color: "transparent"
-                border.color: "#ffffff"
+                color: "#ffecd2"
+                border.color: "#000000"
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0
+                        color: "#ffecd2"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#fcb69f"
+                    }
+                }
 
                 Rectangle {
                     id: extraBackground
