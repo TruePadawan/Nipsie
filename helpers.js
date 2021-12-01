@@ -1,6 +1,7 @@
-const NumToTime = (nums) => {
+const numToTime = (nums) => {
     let minutes = 0;
 
+    nums = parseInt(nums);
     while (nums >= 60) {
         minutes += 1;
         nums -= 60;
