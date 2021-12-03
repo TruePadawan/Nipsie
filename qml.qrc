@@ -19,5 +19,8 @@
         <file>resources/repeat_one.png</file>
         <file>resources/shuffle_clicked.png</file>
         <file>resources/app_icon.ico</file>
+        <file>CustomPlaylist.qml</file>
+        <file>resources/music.png</file>
+        <file>PlayListDelegate.qml</file>
     </qresource>
 </RCC>

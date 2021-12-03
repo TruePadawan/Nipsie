@@ -6,6 +6,10 @@ Item {
     id: root
     width: 430
     height: 80
+    property alias shuffleButtonIcon: shuffleButtonIcon
+    property alias shuffleButton: shuffleButton
+    property alias repeatButtonIcon: repeatButtonIcon
+    property alias repeatButton: repeatButton
 
     Rectangle {
         id: backgroundRect
@@ -21,6 +25,7 @@ Item {
                 width: backgroundRect.width * 0.3
                 height: backgroundRect.height
                 color: "#ffecd2"
+                border.color: "#ffff00"
                 border.width: 1
 
                 Rectangle {
@@ -29,7 +34,7 @@ Item {
                     y: 4
                     width: 116
                     height: 72
-                    color: "#ffffff"
+                    color: "#ffecd2"
                     border.width: 0
                 }
 
@@ -49,7 +54,7 @@ Item {
                 width: backgroundRect.width * 0.4
                 height: backgroundRect.height
                 color: "#ffecd2"
-                border.color: "#000000"
+                border.color: "#ffff00"
                 gradient: Gradient {
                     GradientStop {
                         position: 0
@@ -94,7 +99,7 @@ Item {
                 width: backgroundRect.width * 0.3
                 height: backgroundRect.height
                 color: "#ffecd2"
-                border.color: "#000000"
+                border.color: "#ffff00"
                 gradient: Gradient {
                     GradientStop {
                         position: 0
@@ -146,6 +151,7 @@ Item {
                             }
 
                             Image {
+                                id: repeatButtonIcon
                                 source: "qrc:/resources/repeat.png"
                                 fillMode: Image.PreserveAspectFit
                                 width: 32
@@ -166,6 +172,7 @@ Item {
                             }
 
                             Image {
+                                id: shuffleButtonIcon
                                 source: "qrc:/resources/shuffle.png"
                                 fillMode: Image.PreserveAspectFit
                                 width: 32
@@ -173,14 +180,23 @@ Item {
                                 sourceSize.width: 32
                                 sourceSize.height: 32
                                 anchors.centerIn: parent
+
+                                states: [
+                                    State {
+                                        name: "active"
+                                        PropertyChanges {
+                                            target: shuffleButtonIcon
+                                            source: "qrc:/resources/shuffle_clicked.png"
+                                        }
+                                    }
+                                ]
                             }
                         }
-
-
 
                     }
                 }
             }
         }
     }
+
 }

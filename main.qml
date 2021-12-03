@@ -7,7 +7,8 @@ import QtMultimedia 5.15
 
 import "helpers.js" as Functions;
 
-Window {
+ApplicationWindow {
+    id: rootWindow
     width: 430
     height: 150
     maximumWidth: 430
@@ -15,6 +16,14 @@ Window {
 
     visible: true
     title: qsTr("Nipsie")
+
+    // PLAYLIST COMPONENT
+    Component {
+        id: playListComponent
+        CustomPlaylist {
+
+        }
+    }
 
     Audio {
         id: audioDevice
@@ -45,11 +54,12 @@ Window {
         }
     }
 
+    // PICK AUDIO FILE
     FileDialog {
         id: fileDialog
         title: "Please choose an audio file"
         folder: shortcuts.music
-        nameFilters: [ "Audio files (*.mp3 *.wav)" ]
+        nameFilters: [ "Audio files (*.mp3)" ]
         selectMultiple: false
 
         onAccepted: {
@@ -67,6 +77,8 @@ Window {
 
         Controls {
             id: controls
+
+            property var playListControl: undefined
 
             open_file.onClicked: {
                 fileDialog.open();
@@ -93,6 +105,21 @@ Window {
                 audioDevice.seek(seekSlider.value * 1000);
             }
 
+            playList.onClicked: {
+                if (playListControl == undefined)
+                {
+                    playListControl = playListComponent.createObject(rootWindow);
+
+                    playListControl.show();
+                    playListControl.x = 650+playListControl.width;
+                    playListControl.y += 100;
+                }
+                else
+                {
+                    playListControl.hide();
+                    controls.playListControl = undefined;
+                }
+            }
 
         }
     }
