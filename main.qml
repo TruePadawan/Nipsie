@@ -31,6 +31,10 @@ ApplicationWindow {
         source: fileDialog.fileUrl
         volume: controls.volumeSlider.value
 
+        onSourceChanged: {
+            backend.requestData(audioDevice.source);
+        }
+
         onPositionChanged: {
             controls.currentTimeFrame.text = Functions.numToTime(position/1000);
         }
@@ -61,10 +65,6 @@ ApplicationWindow {
         folder: shortcuts.music
         nameFilters: [ "Audio files (*.mp3)" ]
         selectMultiple: false
-
-        onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrl)
-        }
     }
 
     // USER INTERFACE
@@ -121,6 +121,26 @@ ApplicationWindow {
                 }
             }
 
+        }
+    }
+
+    // GET MUSIC FILE METADATA
+    Connections {
+        target: backend
+
+        function onTitleAvailable (title)
+        {
+            fileInfo.title.text = title;
+        }
+
+        function onAlbumAvailable (album)
+        {
+            fileInfo.album.text = album;
+        }
+
+        function onArtistAvailable (artist)
+        {
+            fileInfo.artist.text = artist;
         }
     }
 }

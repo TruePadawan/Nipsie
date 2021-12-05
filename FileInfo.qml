@@ -10,6 +10,9 @@ Item {
     property alias shuffleButton: shuffleButton
     property alias repeatButtonIcon: repeatButtonIcon
     property alias repeatButton: repeatButton
+    property alias title: title
+    property alias album: album
+    property alias artist: artist
 
     Rectangle {
         id: backgroundRect
@@ -77,6 +80,7 @@ Item {
                         id: title
                         width: audioInfo.width * 0.9
                         height: 20
+                        font.bold: true
                         wrapMode: Text.Wrap
                     }
 
