@@ -137,6 +137,26 @@ ApplicationWindow {
 
         FileInfo {
             id: fileInfo
+            shuffleButton.onClicked: {
+                playlist.playbackMode = Playlist.Random
+                if (shuffleButtonIcon.state != "active")
+                    shuffleButtonIcon.state = "active"
+                else
+                {
+                    playlist.playbackMode = Playlist.Sequential
+                    shuffleButtonIcon.state = ""
+                }
+            }
+            repeatButton.onClicked: {
+                audioDevice.loops = Audio.Infinite
+                if (repeatButtonIcon.state != "active")
+                    repeatButtonIcon.state = "active"
+                else
+                {
+                    repeatButtonIcon.state = ""
+                    audioDevice.loops = 0
+                }
+            }
         }
 
         Controls {
