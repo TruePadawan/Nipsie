@@ -1,7 +1,7 @@
 # Nipsie
 A Simple Audio-Player being built with C++, QML and JavaScript
 
-![ui](https://user-images.githubusercontent.com/71678062/144246123-2377da40-1c95-4c73-9886-328e168710b3.JPG)
+![nipsie](https://user-images.githubusercontent.com/71678062/145694501-4e95981f-e4f6-4fd7-a5b2-1df0551c89d2.jpg)
 
 ## Progress
 * Protyped the UI
