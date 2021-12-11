@@ -13,6 +13,7 @@ Item {
     property alias title: title
     property alias album: album
     property alias artist: artist
+    property alias thumbnail: image
 
     Rectangle {
         id: backgroundRect
@@ -30,16 +31,6 @@ Item {
                 color: "#ffecd2"
                 border.color: "#ffff00"
                 border.width: 1
-
-                Rectangle {
-                    id: fillerRect
-                    x: 7
-                    y: 4
-                    width: 116
-                    height: 72
-                    color: "#ffecd2"
-                    border.width: 0
-                }
 
                 Image {
                     id: image
