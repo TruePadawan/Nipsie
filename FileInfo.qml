@@ -154,6 +154,23 @@ Item {
                                 sourceSize.width: 32
                                 sourceSize.height: 32
                                 anchors.centerIn: parent
+
+                                states: [
+                                    State {
+                                        name: "active"
+                                        PropertyChanges {
+                                            target: repeatButtonIcon
+                                            source: "qrc:/resources/repeat_clicked.png"
+                                        }
+                                    },
+                                    State {
+                                        name: "repeat_once"
+                                        PropertyChanges {
+                                            target: repeatButtonIcon
+                                            source: "qrc:/resources/repeat_one.png"
+                                        }
+                                    }
+                                ]
                             }
                         }
 
