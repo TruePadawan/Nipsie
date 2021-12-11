@@ -13,6 +13,13 @@ Window {
     title: "Playlist"
     flags: Qt.FramelessWindowHint
 
+    property var playlistModel: null
+    property var currentFile: null
+
+    property alias playPlaylist: playPlaylist
+    property alias addOther: addOther
+    property alias addCurrent: addCurrent
+
     Column {
         id: rootCol
         anchors.fill: parent
@@ -61,28 +68,10 @@ Window {
             ListView {
                 id: listView
                 anchors.fill: parent
-                delegate: PlayListDelegate {}
-//                model: ListModel {
-//                    ListElement {
-//                        name: "Grey"
-//                        colorCode: "grey"
-//                    }
-
-//                    ListElement {
-//                        name: "Red"
-//                        colorCode: "red"
-//                    }
-
-//                    ListElement {
-//                        name: "Blue"
-//                        colorCode: "blue"
-//                    }
-
-//                    ListElement {
-//                        name: "Green"
-//                        colorCode: "green"
-//                    }
-//                }
+                delegate: PlayListDelegate {
+                    audioFileName.text: backend.getFileName(source);
+                }
+                model: playlistModel
             }
         }
 
@@ -91,6 +80,53 @@ Window {
             width: root.width
             height: 30
             color: "#302e29"
+
+            Row {
+                id: row
+                anchors.fill: parent
+                spacing: 43
+                rightPadding: 5
+                leftPadding: 5
+                topPadding: 0
+                padding: 0
+
+
+                Button {
+                    id: addCurrent
+                    width: 80
+                    height: 16
+                    text: qsTr("Add Current")
+                    anchors.verticalCenter: parent.verticalCenter
+                    background: Rectangle {
+                        radius: 4;
+                        color: parent.down ? "#cf6868" : "brown"
+                    }
+                }
+
+                Button {
+                    id: playPlaylist
+                    width: 50
+                    height: 16
+                    text: qsTr("Play")
+                    anchors.verticalCenter: parent.verticalCenter
+                    background: Rectangle {
+                        radius: 4;
+                        color: parent.down ? "#cf6868" : "brown"
+                    }
+                }
+
+                Button {
+                    id: addOther
+                    width: 70
+                    height: 16
+                    text: qsTr("Add Other")
+                    anchors.verticalCenter: parent.verticalCenter
+                    background: Rectangle {
+                        radius: 4;
+                        color: parent.down ? "#cf6868" : "brown"
+                    }
+                }
+            }
         }
     }
 
