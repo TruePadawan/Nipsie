@@ -25,13 +25,14 @@ ApplicationWindow {
 
         CustomPlaylist {
             playlistModel: playlist
+            playlistItemList: playlistItems
             currentFile: audioDevice.source
             addCurrent.onClicked: {
+
                 // MAKE SURE THE ITEM TO BE ADDED ISN'T ALREADY IN THE PLAYLIST
                 if (playlistItems.indexOf(audioDevice.source.toString()) == -1 && audioDevice.source != "")
                 {
                     playlist.addItem(audioDevice.source)
-//                    playlist.itemSource(1)
                 }
             }
 
