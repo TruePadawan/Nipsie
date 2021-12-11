@@ -18,12 +18,14 @@ ApplicationWindow {
     title: qsTr("Nipsie")
 
     property var playlistItems: [];
+    property string formerFileUrl: "";
 
     // PLAYLIST FEATURE
     Component {
         id: playListComponent
 
         CustomPlaylist {
+            id: customPlaylistComponent
             playlistModel: playlist
             playlistItemList: playlistItems
             audioController: audioDevice
@@ -70,13 +72,18 @@ ApplicationWindow {
         onItemCountChanged: {
             Functions.updatePlaylistItems(playlist,playlistItems);
         }
-        onCurrentIndexChanged: {
-            fileInfo.thumbnail.source = "";
-            fileInfo.artist.text = "";
-            fileInfo.title.text = "";
-            fileInfo.album.text = "";
 
-            backend.requestData(playlist.currentItemSource);
+        onCurrentIndexChanged: {
+            if (formerFileUrl != playlist.currentItemSource.toString())
+            {
+                formerFileUrl = playlist.currentItemSource.toString();
+                fileInfo.thumbnail.source = "";
+                fileInfo.artist.text = "";
+                fileInfo.title.text = "";
+                fileInfo.album.text = "";
+
+                backend.requestData(playlist.currentItemSource);
+            }
         }
     }
 
@@ -87,6 +94,16 @@ ApplicationWindow {
         autoPlay: true
         source: fileDialog.fileUrl
         volume: controls.volumeSlider.value
+
+
+
+        onPlaylistChanged: {
+            if (audioDevice.playlist)
+            {
+                controls.previousItem.enabled = true;
+                controls.nextItem.enabled = true;
+            }
+        }
 
         onPositionChanged: {
             controls.currentTimeFrame.text = Functions.numToTime(position/1000);
@@ -122,12 +139,19 @@ ApplicationWindow {
 
         onAccepted: {
             // RESET THE PREVIOUS AUDIO FILE UI INFO WHEN A NEW FILE IS PLAYED
-            fileInfo.thumbnail.source = "";
-            fileInfo.artist.text = "";
-            fileInfo.title.text = "";
-            fileInfo.album.text = "";
+            if (formerFileUrl != fileUrl.toString())
+            {
+                formerFileUrl = fileUrl.toString();
+                fileInfo.thumbnail.source = "";
+                fileInfo.artist.text = "";
+                fileInfo.title.text = "";
+                fileInfo.album.text = "";
 
-            backend.requestData(fileUrl);
+                controls.previousItem.enabled = false;
+                controls.nextItem.enabled = false;
+
+                backend.requestData(fileUrl);
+            }
         }
     }
 

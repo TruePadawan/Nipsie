@@ -22,6 +22,7 @@ Window {
     property alias addOther: addOther
     property alias addCurrent: addCurrent
 
+
     Column {
         id: rootCol
         anchors.fill: parent
@@ -72,6 +73,7 @@ Window {
                 anchors.fill: parent
                 delegate: PlayListDelegate {
                     audioFileName.text: backend.getFileName(source);
+
                     mousearea.onClicked: {
                         let index = playlistItemList.indexOf(source.toString());
                         if (audioController.playlist == undefined)
@@ -103,6 +105,7 @@ Window {
 
                 Button {
                     id: addCurrent
+                    enabled: (audioController.source.toString() != "") ? true : false;
                     width: 80
                     height: 16
                     text: qsTr("Add Current")
@@ -111,10 +114,13 @@ Window {
                         radius: 4;
                         color: parent.down ? "#cf6868" : "brown"
                     }
+
+
                 }
 
                 Button {
                     id: playPlaylist
+                    enabled: playlistModel.itemCount ? true : false;
                     width: 50
                     height: 16
                     text: qsTr("Play")

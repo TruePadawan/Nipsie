@@ -6,17 +6,19 @@
 
 AudioFileData::AudioFileData(QObject *parent) : QObject(parent)
 {
-    imgData = "data:image/jpg;base64,";
+
 
     connect(&temp,&QMediaPlayer::mediaStatusChanged, this, [=] (QMediaPlayer::MediaStatus status){
         if (status == QMediaPlayer::LoadedMedia)
         {
             if (temp.isMetaDataAvailable())
             {
+                imgData = "data:image/jpg;base64,";
                 emit titleAvailable(temp.metaData(QMediaMetaData::Title).toString());
                 emit albumAvailable(temp.metaData(QMediaMetaData::AlbumTitle).toString());
                 emit artistAvailable(temp.metaData(QMediaMetaData::AlbumArtist).toString());
                 serializeImgToString();
+                imgData = "";
             }else {
                 emit noMetaData();
             }
