@@ -14,6 +14,7 @@ Window {
     flags: Qt.FramelessWindowHint
 
     property var playlistModel: null
+    property var playlistItemList: null
     property var currentFile: null
 
     property alias playPlaylist: playPlaylist
@@ -70,6 +71,10 @@ Window {
                 anchors.fill: parent
                 delegate: PlayListDelegate {
                     audioFileName.text: backend.getFileName(source);
+                    mousearea.onClicked: {
+                        let index = playlistItemList.indexOf(source.toString());
+                        playlistModel.currentIndex = index;
+                    }
                 }
                 model: playlistModel
             }
