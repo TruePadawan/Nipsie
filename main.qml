@@ -31,11 +31,16 @@ ApplicationWindow {
                 if (playlistItems.indexOf(audioDevice.source.toString()) == -1 && audioDevice.source != "")
                 {
                     playlist.addItem(audioDevice.source)
-                    playlist.itemSource(1)
+//                    playlist.itemSource(1)
                 }
             }
+
             addOther.onClicked: {
                 playlistFileDialog.open();
+            }
+
+            playPlaylist.onClicked: {
+                audioDevice.playlist = playlist;
             }
         }
     }
@@ -52,7 +57,7 @@ ApplicationWindow {
             {
                 if (playlistItems.indexOf(fileUrls[i].toString()) === -1)
                 {
-                    playlist.addItem(fileUrls[i].toString());
+                    playlist.addItem(fileUrls[i]);
                 }
             }
         }
@@ -62,7 +67,14 @@ ApplicationWindow {
         id: playlist
         onItemCountChanged: {
             Functions.updatePlaylistItems(playlist,playlistItems);
-            console.log("##",playlistItems);
+        }
+        onCurrentIndexChanged: {
+            fileInfo.thumbnail.source = "";
+            fileInfo.artist.text = "";
+            fileInfo.title.text = "";
+            fileInfo.album.text = "";
+
+            backend.requestData(playlist.currentItemSource);
         }
     }
 
@@ -74,10 +86,6 @@ ApplicationWindow {
         source: fileDialog.fileUrl
         volume: controls.volumeSlider.value
 
-        onSourceChanged: {
-            backend.requestData(audioDevice.source);
-        }
-
         onPositionChanged: {
             controls.currentTimeFrame.text = Functions.numToTime(position/1000);
         }
@@ -87,6 +95,18 @@ ApplicationWindow {
         }
 
         onPlaying: {
+             // RESET THE PREVIOUS AUDIO FILE UI INFO WHEN A NEW FILE IS PLAYED
+            fileInfo.thumbnail.source = "";
+            fileInfo.artist.text = "";
+            fileInfo.title.text = "";
+            fileInfo.album.text = "";
+
+            if (audioDevice.source != "")
+                backend.requestData(audioDevice.source);
+            else
+            {
+                backend.requestData(playlist.currentItemSource);
+            }
             controls.playButtonIcon.state = "paused"
         }
         onPaused: {
@@ -149,7 +169,7 @@ ApplicationWindow {
                 audioDevice.seek(seekSlider.value * 1000);
             }
 
-            playList.onClicked: {
+            playListButton.onClicked: {
                 if (playListControl == undefined)
                 {
                     playListControl = playListComponent.createObject(rootWindow);
@@ -165,6 +185,14 @@ ApplicationWindow {
                 }
             }
 
+            previousItem.onClicked: {
+                playlist.previous()
+            }
+
+            nextItem.onClicked: {
+                playlist.next();
+            }
+
         }
     }
 
@@ -174,7 +202,10 @@ ApplicationWindow {
 
         function onNoMetaData()
         {
-            fileInfo.title.text = backend.getFileName(audioDevice.source);
+            if (audioDevice.source != "")
+                fileInfo.title.text = backend.getFileName(audioDevice.source);
+            else
+                fileInfo.title.text = backend.getFileName(playlist.currentItemSource);
         }
 
         function onTitleAvailable (title)
