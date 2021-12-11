@@ -6,17 +6,17 @@ Item {
     id: root
     width: 430
     height: 70
+    property alias playListButton: playListButton
+    property alias nextItem: nextItem
+    property alias previousItem: previousItem
     property alias totalTimeFrame: totalTimeFrame
     property alias currentTimeFrame: currentTimeFrame
     property alias audioIcon: audioIcon
     property alias seekSlider: seekSlider
     property alias volumeSlider: volumeSlider
-    property alias seekFront: seekFront
-    property alias seekBack: seekBack
     property alias stopButton: stopButton
     property alias playButton: playButton
     property alias playButtonIcon: playButtonIcon
-    property alias playList: playList
     property alias open_file: open_file
 
     Rectangle {
@@ -232,7 +232,7 @@ Item {
                     }
 
                     Button {
-                        id: seekBack
+                        id: previousItem
                         width: 50
                         height: controlsRect.height
                         text: qsTr("")
@@ -264,7 +264,7 @@ Item {
                     }
 
                     Button {
-                        id: seekFront
+                        id: nextItem
                         width: 50
                         height: controlsRect.height
                         text: qsTr("")
@@ -359,7 +359,7 @@ Item {
                     }
 
                     Button {
-                        id: playList
+                        id: playListButton
                         width: 50
                         height: controlsRect.height
                         text: qsTr("")
