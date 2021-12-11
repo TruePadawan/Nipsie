@@ -17,14 +17,57 @@ ApplicationWindow {
     visible: true
     title: qsTr("Nipsie")
 
-    // PLAYLIST COMPONENT
+    property var playlistItems: [];
+
+    // PLAYLIST FEATURE
     Component {
         id: playListComponent
-        CustomPlaylist {
 
+        CustomPlaylist {
+            playlistModel: playlist
+            currentFile: audioDevice.source
+            addCurrent.onClicked: {
+                // MAKE SURE THE ITEM TO BE ADDED ISN'T ALREADY IN THE PLAYLIST
+                if (playlistItems.indexOf(audioDevice.source.toString()) == -1 && audioDevice.source != "")
+                {
+                    playlist.addItem(audioDevice.source)
+                    playlist.itemSource(1)
+                }
+            }
+            addOther.onClicked: {
+                playlistFileDialog.open();
+            }
         }
     }
 
+    FileDialog {
+        id: playlistFileDialog
+        title: "Choose a music file to add to playlist"
+        folder: shortcuts.music
+        nameFilters: ["Music files (*.mp3)"]
+        selectMultiple: true
+        onAccepted: {
+            // PREVENT DUPLICATES IN PLAYLIST WHEN ADDING MULTIPLE ITEMS
+            for (let i = 0; i < fileUrls.length; ++i)
+            {
+                if (playlistItems.indexOf(fileUrls[i].toString()) === -1)
+                {
+                    playlist.addItem(fileUrls[i].toString());
+                }
+            }
+        }
+    }
+
+    Playlist {
+        id: playlist
+        onItemCountChanged: {
+            Functions.updatePlaylistItems(playlist,playlistItems);
+            console.log("##",playlistItems);
+        }
+    }
+
+    //////////// END OF PLAYLIST FEATURE ///////////////
+    //////////// AUDIO DEVICE ////////////
     Audio {
         id: audioDevice
         autoPlay: true
@@ -58,12 +101,12 @@ ApplicationWindow {
         }
     }
 
-    // PICK AUDIO FILE
+    // FILE DIALOG FOR PICKING AUDIO FILE
     FileDialog {
         id: fileDialog
-        title: "Please choose an audio file"
+        title: "Please choose a music file"
         folder: shortcuts.music
-        nameFilters: [ "Audio files (*.mp3)" ]
+        nameFilters: [ "Music files (*.mp3)" ]
         selectMultiple: false
     }
 
@@ -83,6 +126,7 @@ ApplicationWindow {
             open_file.onClicked: {
                 fileDialog.open();
             }
+
             playButton.onClicked: {
                 if (audioDevice.playbackState === Audio.PausedState || audioDevice.playbackState === Audio.StoppedState)
                 {
@@ -128,6 +172,11 @@ ApplicationWindow {
     Connections {
         target: backend
 
+        function onNoMetaData()
+        {
+            fileInfo.title.text = backend.getFileName(audioDevice.source);
+        }
+
         function onTitleAvailable (title)
         {
             fileInfo.title.text = title;
@@ -141,6 +190,11 @@ ApplicationWindow {
         function onArtistAvailable (artist)
         {
             fileInfo.artist.text = artist;
+        }
+
+        function onThumbnailAvailable (source)
+        {
+            fileInfo.thumbnail.source = source;
         }
     }
 }
