@@ -13,7 +13,6 @@ AudioFileData::AudioFileData(QObject *parent) : QObject(parent)
         {
             if (temp.isMetaDataAvailable())
             {
-                qDebug() << "Title Available";
                 emit titleAvailable(temp.metaData(QMediaMetaData::Title).toString());
                 emit albumAvailable(temp.metaData(QMediaMetaData::AlbumTitle).toString());
                 emit artistAvailable(temp.metaData(QMediaMetaData::AlbumArtist).toString());
@@ -29,10 +28,9 @@ AudioFileData::AudioFileData(QObject *parent) : QObject(parent)
 void AudioFileData::serializeImgToString()
 {
     auto img = temp.metaData(QMediaMetaData::ThumbnailImage).value<QPixmap>();
-    //QByteArray imgData;
+
     if (!img.isNull())
     {
-        qDebug() << "Processing Img";
         QBuffer dataBuffer;
         dataBuffer.open(QIODevice::WriteOnly);
         img.save(&dataBuffer,"PNG");
