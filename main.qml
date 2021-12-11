@@ -26,6 +26,7 @@ ApplicationWindow {
         CustomPlaylist {
             playlistModel: playlist
             playlistItemList: playlistItems
+            audioController: audioDevice
             currentFile: audioDevice.source
             addCurrent.onClicked: {
 
@@ -96,18 +97,7 @@ ApplicationWindow {
         }
 
         onPlaying: {
-             // RESET THE PREVIOUS AUDIO FILE UI INFO WHEN A NEW FILE IS PLAYED
-            fileInfo.thumbnail.source = "";
-            fileInfo.artist.text = "";
-            fileInfo.title.text = "";
-            fileInfo.album.text = "";
 
-            if (audioDevice.source != "")
-                backend.requestData(audioDevice.source);
-            else
-            {
-                backend.requestData(playlist.currentItemSource);
-            }
             controls.playButtonIcon.state = "paused"
         }
         onPaused: {
@@ -129,6 +119,16 @@ ApplicationWindow {
         folder: shortcuts.music
         nameFilters: [ "Music files (*.mp3)" ]
         selectMultiple: false
+
+        onAccepted: {
+            // RESET THE PREVIOUS AUDIO FILE UI INFO WHEN A NEW FILE IS PLAYED
+            fileInfo.thumbnail.source = "";
+            fileInfo.artist.text = "";
+            fileInfo.title.text = "";
+            fileInfo.album.text = "";
+
+            backend.requestData(fileUrl);
+        }
     }
 
     // USER INTERFACE
@@ -138,13 +138,16 @@ ApplicationWindow {
         FileInfo {
             id: fileInfo
             shuffleButton.onClicked: {
-                playlist.playbackMode = Playlist.Random
-                if (shuffleButtonIcon.state != "active")
-                    shuffleButtonIcon.state = "active"
-                else
+                if (audioDevice.playlist)
                 {
-                    playlist.playbackMode = Playlist.Sequential
-                    shuffleButtonIcon.state = ""
+                    playlist.playbackMode = Playlist.Random
+                    if (shuffleButtonIcon.state != "active")
+                        shuffleButtonIcon.state = "active"
+                    else
+                    {
+                        playlist.playbackMode = Playlist.Sequential
+                        shuffleButtonIcon.state = ""
+                    }
                 }
             }
             repeatButton.onClicked: {

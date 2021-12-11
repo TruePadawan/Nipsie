@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.12
-
+import QtMultimedia 5.15
 
 Window {
     id: root
@@ -16,6 +16,7 @@ Window {
     property var playlistModel: null
     property var playlistItemList: null
     property var currentFile: null
+    property var audioController: null
 
     property alias playPlaylist: playPlaylist
     property alias addOther: addOther
@@ -73,6 +74,10 @@ Window {
                     audioFileName.text: backend.getFileName(source);
                     mousearea.onClicked: {
                         let index = playlistItemList.indexOf(source.toString());
+                        if (audioController.playlist == undefined)
+                        {
+                            audioController.playlist = playlistModel
+                        }
                         playlistModel.currentIndex = index;
                     }
                 }
