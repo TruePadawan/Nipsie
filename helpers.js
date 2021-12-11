@@ -15,3 +15,10 @@ const numToTime = (nums) => {
     let result = `${minutes}:${nums}`;
     return result;
 }
+
+const updatePlaylistItems = (playlist, playlistItems) => {
+    if (playlistItems.indexOf(playlist.itemSource(playlist.itemCount-1).toString()) === -1)
+    {
+        playlistItems.push(playlist.itemSource(playlist.itemCount-1).toString());
+    }
+}
