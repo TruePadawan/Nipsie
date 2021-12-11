@@ -5,6 +5,7 @@ Item {
     width: 295
     height: 20
     property alias audioFileName: audioFileName
+    property alias mousearea: mousearea
 
     Rectangle {
         id: rectangle
