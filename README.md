@@ -1,5 +1,5 @@
 # Nipsie
-A Simple Audio-Player being built with C++, QML and JavaScript
+Basic audio player built with C++/Qt.  
 
 ![nipsie](https://user-images.githubusercontent.com/71678062/145694501-4e95981f-e4f6-4fd7-a5b2-1df0551c89d2.jpg)
 
